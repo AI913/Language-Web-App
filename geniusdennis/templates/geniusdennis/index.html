@@ -1,0 +1,67 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'geniusdennis/style.css' %}">
+
+<div style="width: 7vw; border: white solid 0.1em; text-align: center;">
+	<a style="color: white; text-decoration: none; font-family: Gill Sans, sans-serif;" href="{% url 'geniusdennis:quiz' %}">Practise!</a>
+</div>
+{% if latest_spanish_list %}
+<div class="flexcontainer">
+	<div class="sectiontitle">Latest vocabulary
+	</div>
+    {% for spanish in latest_spanish_list %}
+    <div class="card">
+	    <div class="cardinner" onclick="this.classList.toggle('flipped');">
+	    	<div class="cardfront">
+	        	<a href="{% url 'geniusdennis:detail' spanish.id %}">{{ spanish.word_esp }}</a>
+		        	<form action="/deleteword/{{spanish.id}}/" method="post">{% csrf_token %}
+					<input type="submit" value="Delete" id="delete" />
+					</form>
+			</div>
+			{% for english in spanish.english_set.all %}
+			<div class="cardback">
+				<p>{{ english.word_eng}}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+    {% endfor %}
+</div>
+{% else %}
+    <p style="color: white;">No Spanish words are available.</p>
+{% endif %}
+
+{% if random_spanish_list %}
+<div class="flexcontainer">
+	<div class="sectiontitle">Random vocabulary
+	</div>
+    {% for spanish in random_spanish_list %}
+    <div class="card">
+	    <div class="cardinner" onclick="this.classList.toggle('flipped');">
+	    	<div class="cardfront">
+	        	<a href="{% url 'geniusdennis:detail' spanish.id %}">{{ spanish.word_esp }}</a>
+	        	<form action="/deleteword/{{spanish.id}}/" method="post">{% csrf_token %}
+				<input type="submit" value="Delete" id="delete" />
+				</form>
+			</div>
+			{% for english in spanish.english_set.all %}
+			<div class="cardback">
+				<p>{{ english.word_eng}}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+    {% endfor %}
+</div>
+{% else %}
+    <p style="color: white;">No Spanish words are available.</p>
+{% endif %}
+<div style="width: 100vw; display: flex; justify-content: center;">
+	<div class="newword_input">
+		<form action="/addword/" method="post">{% csrf_token %}
+			<label for="esp">Spanish word:</label><input type="text" name="word_esp" required/>
+			<label for="eng">English word:</label><input type="text" name="word_eng" required/>
+			<input type="submit" value="Add"/>
+		</form> 
+	</div>
+</div>
+

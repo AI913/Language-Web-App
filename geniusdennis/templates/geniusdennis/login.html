@@ -1,0 +1,10 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'geniusdennis/style.css' %}">
+
+<div class="newword_input">
+	<form action="/login/" method="post">{% csrf_token %}
+		<label for="esp">Spanish word:</label><input type="text" name="username"/>
+		<label for="eng">English word:</label><input type="text" name="password"/>
+		<input type="submit" value="Add"/>
+	</form> 
+</div>

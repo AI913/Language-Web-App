@@ -1,0 +1,12 @@
+<h1>{{ spanish.word_esp }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'geniusdennis:vote' spanish.id %}" method="post">
+{% csrf_token %}
+{% for english in spanish.english_set.all %}
+	<input type="radio" name="english" id="english{{ forloop.counter }}" value="{{ english.id }}">
+    <label for="english{{ forloop.counter }}">{{ english.word_eng }}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">
+</form>

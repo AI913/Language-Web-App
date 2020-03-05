@@ -1,0 +1,63 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'geniusdennis/style.css' %}">
+<scrip src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$("form").on('submit', function(e) { // or you can get the form by id if you set it
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: 'GET',
+       url: url,
+       data: form.serialize(), // serializes the forms elements.
+       success: function(data)
+       {
+           ... // whatever you want to do
+           var alertMessage = data.message;
+           if (data.correct_answer) {
+               alertMessage += ' ' + data.correct_answer;
+           }
+           alert(alertMessage); // show response
+       }
+     });
+});
+</script>
+
+<div style="width: 7vw; border: white solid 0.1em; text-align: center;">
+	<a style="color: white; text-decoration: none; font-family: Gill Sans, sans-serif;" href="{% url 'geniusdennis:index' %}">Home page</a>
+</div>
+{% if random_spanish_question %}
+<div class="flexcontainer" style="justify-content: center;">
+	<div class="sectiontitle">Quiz time
+	</div>
+    	<div class="question_card">
+        	<div class="question_word">{{ random_spanish_question }}</div>
+        	{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    {% endfor %}
+			</ul>
+			{% endif %}
+        	<form action="/checkans/{{random_spanish_question.id}}/" method="get">{% csrf_token %}
+        		<label for="ans">Answer:</label>
+        		<input type="text" name="ans"autofocus autocomplete="off"/>
+        		<input type="submit" value="Submit"/>
+        	</form>
+        <input type="submit" value="Skip"/>
+        
+		</div>
+</div>
+{% else %}
+	{% if message %}
+        <div class="message">
+            {{ message }}
+        </div>
+        <div class="ans">
+            {{ correct_answer }}
+        </div>
+    {% endif %}
+{% endif %}

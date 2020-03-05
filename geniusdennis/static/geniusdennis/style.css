@@ -1,0 +1,117 @@
+body {
+    background: black  no-repeat;
+    height: 100vh;
+    width: 100vw;
+}
+.flexcontainer{
+	height: 100vh;
+	width: 80vw;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.card{
+	width: 17vw;
+	height: 15vh;
+	perspective: 1000px;
+}
+.cardinner {
+  position: relative;
+  width: 15vw;
+  height: 15vh;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+.cardinner.flipped {
+  transform: rotateY(180deg);
+}
+
+.cardfront, .cardback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 15vw;
+  height: 15vh;
+  font-weight: bold;
+  background-color: white;
+  border: solid #A6ACAF;
+  border-radius: 1em;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.cardfront a, .cardback a{
+	font-size: 2em;
+	align-items: center;
+	color: black;
+	text-decoration: none;
+}
+
+.cardfront {
+}
+
+/* Style the back side */
+.cardback {
+  color: #0CAF4A;
+  font-weight: 1500;
+  font-size: 2em;
+  border: solid #A6ACAF 0.2em;
+  background-color: white;
+  transform: rotateY(180deg);
+}
+.message{
+	color: white;
+}
+.ans{
+	color: green;
+}
+.newword_input{
+	margin: 5vh;
+	color: white;
+	font-size: 1.5em;
+}
+.sectiontitle{
+	color: yellow;
+	height: 10vh;
+	width: 100%;
+	text-align: center;
+	font-size: 3em;
+}
+.question_word{
+	color: green;
+	font-size: 2.5em;
+	margin: 1em;
+}
+.question_card{
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	text-align: center;
+	color: black;
+	font-size: 2em;
+	height: 70vh;
+	width: 50vw;
+	border: 0.5em solid #A6ACAF;
+}
+
+#delete{
+	position: absolute;
+	color: #AC0D38;
+	right: 0.3em;
+	bottom: 0.3em;
+	text-decoration: none;
+	backface-visibility: hidden;
+}
+.correct{
+	font-size: 0.5em;
+	color: green;
+}
+.incorrect{
+	font-size: 0.5em;
+	color: red;
+}
+url("images/background.jpeg")

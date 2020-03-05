@@ -1,0 +1,9 @@
+<h1>{{ spanish.word_esp }}</h1>
+
+<ul>
+{% for english in spanish.english_set.all %}
+    <li>{{ english.word_eng }} -- {{ english.votes }} vote{{ english.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'geniusdennis:detail' spanish.id %}">Vote again?</a>
